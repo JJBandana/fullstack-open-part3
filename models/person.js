@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
-var uniqueValidator = require('mongoose-unique-validator');
+var uniqueValidator = require('mongoose-unique-validator')
 
 const url = process.env.MONGODB_URI
 
 console.log('connecting to', url)
 
 mongoose.connect(url)
-    .then(res => {
+    .then(() => {
         console.log('connected to MongoDB')
     })
     .catch( err => console.log('error connecting to MongoDB:', err.message))
@@ -33,6 +33,6 @@ personSchema.set('toJSON', {
     }
 })
 
-personSchema.plugin(uniqueValidator);
+personSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Person', personSchema)

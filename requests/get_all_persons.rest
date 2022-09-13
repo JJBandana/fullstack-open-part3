@@ -1,7 +1,7 @@
-PUT http://localhost:3001/api/persons/631fd42f063e1fcfddd0edf5
+POST http://localhost:3001/api/persons/
 Content-Type: application/json
 
 {
-    "name": "Milagros Aguilera",
-    "number": "40891012"
+    "name": "ASOJKNBAG",
+    "number": "416381"
 }

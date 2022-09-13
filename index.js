@@ -1,12 +1,9 @@
 require('dotenv').config()
-const mongoose = require('mongoose')
 const express =  require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
 const Person = require('./models/person')
-const { response } = require('express')
-var uniqueValidator = require('mongoose-unique-validator');
 
 app.use(cors())
 app.use(express.static('build'))
@@ -21,30 +18,25 @@ app.get('/api/persons', (req, res) => {
     Person.find({}).then(people => res.json(people))
 })
 
-/*
-app.get('/info', (req, res) => {
-    const date = new Date()
-    res.send(`<p>Phonebook has info for ${persons.length} people</p><p>${date}</p>`)
-})
-*/
+
 
 app.get('/api/persons/:id', (req, res, next) => {
     Person.findById(req.params.id)
-    .then(p => {
-        if(p){
-            res.json(p)
-        } else {
-            res.status(404).end()
-        }
-    })
-    .catch(err => next(err))
+        .then(p => {
+            if(p){
+                res.json(p)
+            } else {
+                res.status(404).end()
+            }
+        })
+        .catch(err => next(err))
 })
 
 app.delete('/api/persons/:id', (req, res, next) => {
     Person.findByIdAndRemove(req.params.id)
-    .then(result => {
-        res.status(204).end()
-    }).catch(err => next(err))
+        .then(() => {
+            res.status(204).end()
+        }).catch(err => next(err))
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
@@ -56,8 +48,8 @@ app.put('/api/persons/:id', (req, res, next) => {
     }
     
     Person.findByIdAndUpdate(req.params.id, person, {new:true})
-    .then(updatedPerson => res.json(updatedPerson))
-    .catch(err => next(err))
+        .then(updatedPerson => res.json(updatedPerson))
+        .catch(err => next(err))
 })
 
 app.post('/api/persons', (req, res, next) => {
@@ -88,5 +80,5 @@ const errorHandler = (error, req, res, next) => {
 
 app.use(errorHandler)
 
-    const PORT = process.env.PORT
-    app.listen(PORT, () => console.log('Server running on port', PORT))
+const PORT = process.env.PORT
+app.listen(PORT, () => console.log('Server running on port', PORT))
