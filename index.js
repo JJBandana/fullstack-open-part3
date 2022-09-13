@@ -6,6 +6,7 @@ const cors = require('cors')
 const app = express()
 const Person = require('./models/person')
 const { response } = require('express')
+var uniqueValidator = require('mongoose-unique-validator');
 
 app.use(cors())
 app.use(express.static('build'))
